@@ -2,12 +2,12 @@
   <?php 
     include('conexao.php');
     // A classe PDO prepara o comando a ser executado
-    $prepara = $conexao_pdo->prepare('SELECT * FROM contatos');
+    $prepara = $conexao_pdo->prepare('SELECT * FROM estados');
     // A classe PDO executa o comando
     $prepara->execute();
   ?>
   <head>
-    <title>Agenda de Contatos Online - Contatos</title>
+    <title>Agenda de Contatos Online - Estados</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -30,18 +30,19 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active">
+            <li>
               <a href="index.php">Home</a>
             </li>
             <li>
               <a href="cadastro-contato.php">Novo Contato</a>
             </li>
-            <li class="dropdown">
+            <li class="dropdown active">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
               <ul class="dropdown-menu" role="menu">
                 <li>
                   <a href="cidades.php">Editar Cidade</a>
-                </li><li>
+                </li>
+                <li>
                   <a href="cadastro-cidade.php">Cadastrar Cidade</a>
                 </li>
                 <li>
@@ -60,14 +61,13 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center">
-            <h1>Contatos</h1>
+            <h1>Estados</h1>
             <br>            
             <table class="table">
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Telefone/Celular</th>
-                  <th>Endereço</th>
+                  <th>Estado</th>
+                  <th>Sigla</th>
                   <th>Alterar</th>
                   <th>Deletar</th>
                 </tr>
@@ -75,9 +75,8 @@
               <tbody>
                 <?php 
                   while ( $linha = $prepara->fetch() ) {
-                    echo '<tr><td>'.$linha['nomeContato'].'</td>';
-                    echo '<td>'.$linha['celularContato'].'</td>';
-                    echo '<td>'.$linha['enderecoContato'].'</td>';
+                    echo '<tr><td>'.$linha['nomeEstado'].'</td>';
+                    echo '<td>'.$linha['siglaEstado'].'</td>';
                     echo '<td>Alterar</td><td>Deletar</td></tr>';
                   }
                 ?>

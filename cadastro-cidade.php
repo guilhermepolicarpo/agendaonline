@@ -1,12 +1,15 @@
 <html><head>
-        <title>Agenda de Contatos Online</title>
+        <title>Agenda de Contatos Online - Cadastro de Cidade</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="css/estilo.css" rel="stylesheet" type="text/css">
+        <link href="estilo.css" rel="stylesheet" type="text/css">
+        <script>
+            (document.getElementById(nome).focus());
+        </script>
     </head><body>
         <div class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -17,24 +20,29 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">Agenda de Contatos Online</a>
+                    <a class="navbar-brand" href="index.php"><span>Agenda de Contatos Online</span></a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="active">
-                            <a href="index.html">Home</a>
+                        <li>
+                            <a href="index.php">Home</a>
                         </li>
                         <li>
-                            <a href="cadastro-contato.html">Novo Contato</a>
+                            <a href="cadastro-contato.php">Novo Contato</a>
                         </li>
-                        <li class="dropdown">
+                        <li class="active dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="cadastro-cidade.html">Cadastrar Cidade</a>
+                                  <a href="cidades.php">Editar Cidade</a>
+                                </li><li>
+                                  <a href="cadastro-cidade.php">Cadastrar Cidade</a>
                                 </li>
                                 <li>
-                                    <a href="cadastro-estado.html">Cadastrar Estado</a>
+                                  <a href="estados.php">Editar Estado</a>
+                                </li>
+                                <li>
+                                  <a href="cadastro-estado.php">Cadastrar Estado</a>
                                 </li>
                             </ul>
                         </li>
@@ -46,8 +54,33 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Contatos</h1>
-                        <p>Lista aqui</p>
+                        <h1>Nova Cidade</h1>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">Nome</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <input type="text" name="nome" class="form-control" placeholder="Nome completo" value="" autofocus="" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="control-label">Estado</label>
+                                </div>
+                                <div class="col-sm-10">
+                                    <select class="form-control">
+                                        <option>Minas Gerais</option>
+                                        <option>Goiás</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -56,10 +89,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h1>Footer header</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisici elit,
-                            <br>sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-                            <br>Ut enim ad minim veniam, quis nostrud</p>
+                        <h1>Agenda Online</h1>
+                        <p>Guilherme Policarpo Silva - RA: 5113232</p>
                     </div>
                     <div class="col-sm-6">
                         <p class="text-info text-right">
@@ -68,10 +99,10 @@
                         </p>
                         <div class="row">
                             <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">
-                                <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
-                                <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
-                                <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                                <a href="#"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-2x fa-fw fa-instagram text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-2x fa-fw fa-twitter text-inverse"></i></a>
+                                <a href="#"><i class="fa fa-2x fa-fw fa-facebook text-inverse"></i></a>
+                                <a href="https://github.com/guilhermepolicarpo/agendaonline"><i class="fa fa-2x fa-fw fa-github text-inverse"></i></a>
                             </div>
                         </div>
                         <div class="row">
@@ -79,7 +110,7 @@
                                 <a href="#"><i class="fa fa-2x fa-fw fa-instagram text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-2x fa-fw fa-twitter text-inverse"></i></a>
                                 <a href="#"><i class="fa fa-2x fa-facebook fa-fw text-inverse"></i></a>
-                                <a href="#"><i class="fa fa-2x fa-fw fa-github text-inverse"></i></a>
+                                <a href="https://github.com/guilhermepolicarpo/agendaonline"><i class="fa fa-2x fa-fw fa-github text-inverse"></i></a>
                             </div>
                         </div>
                     </div>
