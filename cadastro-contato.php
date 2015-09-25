@@ -1,4 +1,13 @@
 <html>
+	<?php 
+	    include('conexao.php');
+	    // A classe PDO prepara o comando a ser executado
+	    $prepara = $conexao_pdo->prepare('SELECT * FROM estados');
+	    $prepara2 = $conexao_pdo->prepare('SELECT * FROM cidades');
+	    // A classe PDO executa o comando
+	    $prepara->execute();
+	    $prepara2->execute();
+  	?>
 	<head>
 	    <title>Agenda de Contatos Online - Cadastro de Contato</title>
 	    <meta charset="utf-8">
@@ -38,14 +47,8 @@
 	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
 	              <ul class="dropdown-menu" role="menu">
 	                <li>
-                  		<a href="cidades.php">Editar Cidade</a>
-                	</li>
-                	<li>
                   		<a href="cadastro-cidade.php">Cadastrar Cidade</a>
-                	</li>
-                	<li>
-                  		<a href="estados.php">Editar Estado</a>
-                	</li>
+                	</li>               	
                 	<li>
                   		<a href="cadastro-estado.php">Cadastrar Estado</a>
                 	</li>
@@ -59,14 +62,14 @@
 	      <div class="container">
 	        <div class="row">
 	          <div class="col-md-12 text-center">
-	            <h1>Novo Contato</h1>
-	            <form class="form-horizontal" role="form">
+	            <h1>Inserir Contato</h1>
+	            <form class="form-horizontal" role="form" action="inserir-contato.php" method="POST">
 	              <div class="form-group">
 	                <div class="col-sm-2">
 	                  <label class="control-label">Nome</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" name="nome" class="form-control" placeholder="Nome completo" value="" autofocus="" required="">
+	                  <input name="nome" type="text" class="form-control" placeholder="Nome completo" value="" autofocus="" required="">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -74,7 +77,7 @@
 	                  <label for="inputEmail3" class="control-label">Email</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="email" class="form-control" id="inputEmail3" placeholder="exemplo@hotmail.com">
+	                  <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="exemplo@hotmail.com">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -82,7 +85,7 @@
 	                  <label class="control-label">Endereço</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Ex.: Rua Centro Oeste, n 03">
+	                  <input name="endereco" type="text" class="form-control" placeholder="Ex.: Rua Centro Oeste, 03 - Centro">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -90,9 +93,13 @@
 	                  <label class="control-label">Estado</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <select class="form-control">
-	                    <option>Minas Gerais</option>
-	                    <option>Goiás</option>
+	                  <select class="form-control" name="estado">
+		                  <?php  
+		                  	while ( $linha = $prepara->fetch() ) 
+		                  	{
+		                    	echo "<option value=$linha[siglaEstado]>".$linha['nomeEstado']."</option>";
+		                    }
+		                  ?>
 	                  </select>
 	                </div>
 	              </div>
@@ -101,9 +108,13 @@
 	                  <label class="control-label">Cidade</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <select class="form-control">
-	                    <option>Campo Florido</option>
-	                    <option>Uberaba</option>
+	                  <select class="form-control" name="cidade">
+	                    <?php  
+		                  	while ( $linha = $prepara2->fetch() ) 
+		                  	{
+		                    	echo "<option value=$linha[idCidade]>".$linha['nomeCidade']."</option>";
+		                    }
+		                ?>
 	                  </select>
 	                </div>
 	              </div>
@@ -112,7 +123,7 @@
 	                  <label class="control-label">CPF/CNPJ</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Informe somente números" pattern="[0-9]{11}">
+	                  <input name="cpf" type="text" class="form-control" placeholder="Informe somente números" pattern="[0-9]{11}">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -120,7 +131,7 @@
 	                  <label class="control-label">RG</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="RG">
+	                  <input name="rg" type="text" class="form-control" placeholder="RG">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -136,7 +147,7 @@
 	                  <label class="control-label">Empresa</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Empresa">
+	                  <input name="empresa" type="text" class="form-control" placeholder="Empresa">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -144,7 +155,7 @@
 	                  <label class="control-label">Cargo</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Ex: Supervisor RH">
+	                  <input name="cargo" type="text" class="form-control" placeholder="Ex: Supervisor RH">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -152,7 +163,7 @@
 	                  <label class="control-label">Web Site</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="www.website.com.br">
+	                  <input name="website" type="text" class="form-control" placeholder="www.website.com.br">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -160,7 +171,7 @@
 	                  <label class="control-label">Rede Social</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="facebook.com/fulano">
+	                  <input name="redesocial" type="text" class="form-control" placeholder="facebook.com/fulano">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -168,7 +179,7 @@
 	                  <label class="control-label">Aniversário</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="date" class="form-control" placeholder="dd/mm/aaaa">
+	                  <input name="aniversario" type="date" class="form-control" placeholder="dd/mm/aaaa">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -176,7 +187,7 @@
 	                  <label class="control-label">Tags</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Ex.: Amigos, Faculdade, Funcionário">
+	                  <input name="tags" type="text" class="form-control" placeholder="Ex.: Amigos, Faculdade, Funcionário">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -184,7 +195,7 @@
 	                  <label class="control-label">Apelido</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <input type="text" class="form-control" placeholder="Apelido">
+	                  <input name="apelido" type="text" class="form-control" placeholder="Apelido">
 	                </div>
 	              </div>
 	              <div class="form-group">
@@ -192,7 +203,7 @@
 	                  <label class="control-label">Anotações</label>
 	                </div>
 	                <div class="col-sm-10">
-	                  <textarea class="form-control"></textarea>
+	                  <textarea name="anotacoes" class="form-control"></textarea>
 	                </div>
 	              </div>
 	              <div class="form-group">

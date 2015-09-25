@@ -1,4 +1,12 @@
-<html><head>
+<html>
+    <head>
+        <?php 
+            include('conexao.php');
+            // A classe PDO prepara o comando a ser executado
+            $prepara = $conexao_pdo->prepare('SELECT * FROM estados');
+            // A classe PDO executa o comando
+            $prepara->execute();
+        ?>
         <title>Agenda de Contatos Online - Cadastro de Estado</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +16,7 @@
         <link href="http://pingendo.github.io/pingendo-bootstrap/themes/default/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="estilo.css" rel="stylesheet" type="text/css">
         <script>
-            (document.getElementById(nome).focus());
+            (document.getElementById(sigla).focus());
         </script>
     </head><body>
         <div class="navbar navbar-default navbar-static-top">
@@ -34,13 +42,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
                             <ul class="dropdown-menu" role="menu">
 								<li>
-			                  		<a href="cidades.php">Editar Cidade</a>
-			                	</li>
-			                	<li>
 			                  		<a href="cadastro-cidade.php">Cadastrar Cidade</a>
-			                	</li>
-			                	<li>
-			                  		<a href="estados.php">Editar Estado</a>
 			                	</li>
 			                	<li>
 			                  		<a href="cadastro-estado.php">Cadastrar Estado</a>
@@ -55,16 +57,17 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Novo Estado</h1>
-                        <form class="form-horizontal" role="form">
+                        <h1>Inserir Estado</h1>
+                        <form class="form-horizontal" role="form" action="inserir-estado.php" method="POST">
                             <div class="form-group">
                                 <div class="col-sm-2">
                                     <label class="control-label">Sigla</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" name="nome" class="form-control" placeholder="MG" value="" autofocus="" required="">
+                                    <input type="text" name="sigla" class="form-control" placeholder="MG" value="" autofocus="" required="">
                                 </div>
-                            </div><div class="form-group">
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-2">
                                     <label class="control-label">Nome</label>
                                 </div>
@@ -79,9 +82,34 @@
                             </div>
                         </form>
                     </div>
+                    <div class="col-md-12 text-center">
+                        <br/>
+                        <h2>Estados Cadastrados</h2>
+                        <br>            
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Estado</th>
+                              <th>Sigla</th>
+                              <th>Alterar</th>
+                              <th>Deletar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php 
+                              while ( $linha = $prepara->fetch() ) {
+                                echo '<tr><td>'.$linha['nomeEstado'].'</td>';
+                                echo '<td>'.$linha['siglaEstado'].'</td>';
+                                echo '<td>Alterar</td><td>Deletar</td></tr>';
+                              }
+                            ?>
+                          </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
         <footer class="section section-primary">
             <div class="container">
                 <div class="row">
@@ -116,4 +144,5 @@
         </footer>
     
 
-</body></html>
+    </body>
+</html>

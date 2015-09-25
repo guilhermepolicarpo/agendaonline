@@ -40,12 +40,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <a href="cidades.php">Editar Cidade</a>
-                </li><li>
                   <a href="cadastro-cidade.php">Cadastrar Cidade</a>
-                </li>
-                <li>
-                  <a href="estados.php">Editar Estado</a>
                 </li>
                 <li>
                   <a href="cadastro-estado.php">Cadastrar Estado</a>
@@ -68,6 +63,8 @@
                   <th>Nome</th>
                   <th>Telefone/Celular</th>
                   <th>Endereço</th>
+                  <th>E-mail</th>
+                  <th>Apelido</th>
                   <th>Alterar</th>
                   <th>Deletar</th>
                 </tr>
@@ -78,6 +75,8 @@
                     echo '<tr><td>'.$linha['nomeContato'].'</td>';
                     echo '<td>'.$linha['celularContato'].'</td>';
                     echo '<td>'.$linha['enderecoContato'].'</td>';
+                    echo '<td>'.$linha['emailContato'].'</td>';
+                    echo '<td>'.$linha['apelidoContato'].'</td>';
                     echo '<td>Alterar</td><td>Deletar</td></tr>';
                   }
                 ?>

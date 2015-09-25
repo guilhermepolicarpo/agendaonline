@@ -1,4 +1,14 @@
-<html><head>
+<html>
+    <head>
+        <?php 
+            include('conexao.php');
+            // A classe PDO prepara o comando a ser executado
+            $prepara = $conexao_pdo->prepare('SELECT * FROM cidades');
+            $prepara2 = $conexao_pdo->prepare('SELECT * FROM estados');
+            // A classe PDO executa o comando
+            $prepara->execute();
+            $prepara2->execute();
+        ?>
         <title>Agenda de Contatos Online - Cadastro de Cidade</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,13 +44,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Adm <i class="fa fa-caret-down"></i></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                  <a href="cidades.php">Editar Cidade</a>
-                                </li><li>
                                   <a href="cadastro-cidade.php">Cadastrar Cidade</a>
-                                </li>
-                                <li>
-                                  <a href="estados.php">Editar Estado</a>
-                                </li>
+                                </li>                                
                                 <li>
                                   <a href="cadastro-estado.php">Cadastrar Estado</a>
                                 </li>
@@ -54,11 +59,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Nova Cidade</h1>
-                        <form class="form-horizontal" role="form">
+                        <h1>Inserir Cidade</h1>
+                        <form class="form-horizontal" role="form" action="inserir-cidade.php" method="POST">
                             <div class="form-group">
                                 <div class="col-sm-2">
-                                    <label class="control-label">Nome</label>
+                                    <label class="control-label">Cidade</label>
                                 </div>
                                 <div class="col-sm-10">
                                     <input type="text" name="nome" class="form-control" placeholder="Nome completo" value="" autofocus="" required="">
@@ -69,9 +74,13 @@
                                     <label class="control-label">Estado</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option>Minas Gerais</option>
-                                        <option>Goiás</option>
+                                    <select class="form-control" name="estado">
+                                        <?php  
+                                            while ( $linha = $prepara2->fetch() ) 
+                                            {
+                                                echo "<option value=$linha[siglaEstado]>".$linha['nomeEstado']."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -82,8 +91,34 @@
                             </div>
                         </form>
                     </div>
+                    <div class="col-md-12 text-center">
+                        <br/>
+                        <h2>Cidades Cadastradas</h2>
+                        <br>            
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Cidade</th>
+                              <th>Estado</th>
+                              <th>Alterar</th>
+                              <th>Deletar</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php 
+                              while ( $linha = $prepara->fetch() ) 
+                              {
+                                echo '<tr><td>'.$linha['nomeCidade'].'</td>';
+                                echo '<td>'.$linha['siglaEstado'].'</td>';
+                                echo '<td>Alterar</td><td>Deletar</td></tr>';
+                              }
+                            ?>
+                          </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+        </div>
         </div>
         <footer class="section section-primary">
             <div class="container">
@@ -117,6 +152,5 @@
                 </div>
             </div>
         </footer>
-    
-
-</body></html>
+    </body>
+</html>
